@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+    <style>
+        .center-containers{
+            text-align: center;
+        }
+        .profile-card {
+            max-width: 400px;
+            background-color: #f7f9fc;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .profile-card h2 {
+            text-align: center;
+            color: #2a9d8f;
+        }
+
+        .profile-card .profile-field {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .profile-card .profile-label {
+            font-weight: bold;
+            color: #264653;
+        }
+
+        .profile-card .profile-value {
+            color: #555;
+            padding-left: 10px;
+        }
+
+        .profile-card .roles-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 5px;
+        }
+
+        .profile-card .roles-list li {
+            background-color: #e9f5f2;
+            color: #2a9d8f;
+            padding: 5px;
+            margin: 3px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <h2>Профиль пользователя</h2>
+
+    <div class="profile-field">
+        <span class="profile-label">Имя пользователя:</span>
+        <span class="profile-value" th:text="${user.username}"></span>
+    </div>
+
+    <div class="profile-field">
+        <span class="profile-label">Имя:</span>
+        <span class="profile-value" th:text="${user.name}"></span>
+    </div>
+
+    <div class="profile-field">
+        <span class="profile-label">Почта:</span>
+        <span class="profile-value" th:text="${user.email}"></span>
+    </div>
+
+    <div class="profile-field">
+        <span class="profile-label">Телефон:</span>
+        <span class="profile-value" th:text="${user.phone}"></span>
+    </div>
+
+    <div class="profile-field">
+        <span class="profile-label">Роли:</span>
+        <ul class="roles-list">
+            <li th:each="role : ${user.roles}" th:text="${role}"></li>
+        </ul>
+    </div>
+</div>
+
+<div class="center-containers">
+    <form th:action="@{/logout}">
+        <button type="submit">Выйти из пользователя</button>
+    </form>
+</div>
+
+</body>
+</html>
