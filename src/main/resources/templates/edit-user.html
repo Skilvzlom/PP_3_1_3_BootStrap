@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+    <style>
+        .center-containers{
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #bdb2b2;
+            border-radius: 20px;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Редактирование пользователя</h1>
+
+    <form th:action = "@{/admin/edit}" method = "POST" th:object = "${user}">
+
+        <input id="id" th:field="*{id}" th:value="*{id}" hidden="hidden">
+
+        <label th:for="username">Имя пользователя:</label>
+        <input type="text" name="username" th:id = "username" th:field="*{username}" th:placeholder = "*{username}" required>
+
+        <label th:for="name">Имя:</label>
+        <input type="text" name="name" th:id="name" th:field="*{name}" th:placeholder="*{name}" required>
+
+        <label th:for="phone">Телефон:</label>
+        <input type="text" name="phone" th:id="phone"  th:field="*{phone}" th:placeholder="*{phone}" required>
+
+        <label th:for="email">E-mail:</label>
+        <input type="email" name="email" th:id="email"  th:field="*{email}" th:placeholder="*{email}" required>
+
+        <label th:for="password">Пароль:</label>
+        <input type="text" name="password" th:id="password" required>
+        <label for="roles"> Роли:
+            <input type="checkbox" id="roles"
+                   th:each="role : ${roles}"
+                   th:text="${role.name}"
+                   th:value="${role.id}"
+                   th:field="*{roles}">
+        </label>
+        <div class="center-containers">
+            <button type="submit">Сохранить пользователя</button>
+        </div>
+    </form>
+    <div class="center-containers">
+        <form th:action="@{/logout}">
+            <button type="submit">Выйти из пользователя</button>
+        </form>
+    </div>
+</body>
+</html>
