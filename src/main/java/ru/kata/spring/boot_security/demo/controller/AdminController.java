@@ -30,25 +30,20 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String getAllUsers(@ModelAttribute("user") User user, Model model, Principal principal) {
+    public String getAllUsers(@ModelAttribute("addUser") User user, Model model, Principal principal) {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("admin", userService.findByUsername(principal.getName()));
+        model.addAttribute("allRoles", roleRepository.findAll());
         return "user-list";
     }
 
-    @GetMapping(value = "/add")
-    public String addUser(@ModelAttribute("user") User user, Model model) {
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("allRoles", roles);
-        return "add-user";
-    }
-
     @GetMapping(value = "/edit")
-    public String editUser(@RequestParam("id") Long id, Model model) {
+    public String editUser(@RequestParam("id") Long id, Principal principal, Model model) {
         Optional<User> user = userService.findById(id);
         if (user.isPresent()) {
+            model.addAttribute("admin", userService.findByUsername(principal.getName()));
             model.addAttribute("user", user.get());
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("allRoles", roleRepository.findAll());
             return "edit-user";
         }
         return "add-user";
@@ -57,7 +52,7 @@ public class AdminController {
     @PostMapping("/add")
     public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "add-user";
+            return "redirect:/admin";
         }
         userService.save(user);
 

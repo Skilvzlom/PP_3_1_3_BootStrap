@@ -113,6 +113,14 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String rolesToString() {
+        StringBuilder sb = new StringBuilder();
+        for(Role role : roles) {
+            sb.append(role);
+            sb.append(", ");
+        }
+        return sb.substring(0, sb.length() - 2);
+    }
 
     @Override
     public String getUsername() {

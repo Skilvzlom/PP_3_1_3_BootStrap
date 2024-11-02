@@ -26,7 +26,7 @@
       <span th:text="${admin.email}">email</span>
       </strong>
       with roles:
-      <span class="text-uppercase" th:text="${admin.roles}">roles</span>
+      <span class="text-uppercase" th:text="${admin.rolesToString()}">roles</span>
     </span>
     <form th:action="@{/logout}" class="form-inline">
       <button class="btn logout-btn">logout</button>
@@ -40,12 +40,12 @@
         <div class="position-sticky pt-3">
           <ul class="list-group flex-column">
             <li class="list-group-item  active" aria-current="true">
-              <a href="" class="nav-link active">
+              <a href="/admin" class="nav-link active">
                 Admin
               </a>
             </li>
             <li class="list-group-item">
-              <a href="" class="nav-link">
+              <a href="/user" class="nav-link">
                 User
               </a>
             </li>
@@ -66,6 +66,7 @@
           </li>
         </ul>
         <div class="tab-content" id="nav-tabContent">
+          <!-- Показываем пользователей -->
           <div class="tab-pane fade show active" id="users-panel" role="tabpanel" aria-labelledby="users-panel-tab">
             <div class="card mt-3">
               <div class="card-body">
@@ -81,6 +82,7 @@
                       <th>Username</th>
                       <th>E-mail</th>
                       <th>Phone</th>
+                      <th>Roles</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -92,11 +94,57 @@
                       <td th:text="${user.username}"></td>
                       <td th:text="${user.email}"></td>
                       <td th:text="${user.phone}"></td>
+                      <td th:text="${user.rolesToString()}"></td>
                       <td>
-                        <button type="button" class="btn btn-info">Info</button>
+                        <form th:action="@{/admin/edit}">
+                          <button type="submit" class="btn btn-info" th:name="id" th:value="${user.id}">Edit</button>
+                        </form>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-danger">Danger</button>
+                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-user' + ${user.id}">Delete</button>
+                        <div class="modal fade" th:id="'delete-user' + ${user.id}" tabindex="-1" aria-labelledby="deleteUserLabel">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5>Delete</h5>
+                              </div>
+                              <div class="modal-body">
+                                <div class="d-flex justify-content-center">
+                                  <div class="m-3 text-center col-4">
+                                    <label for="IDD" class="form-label"><strong>ID</strong></label>
+                                    <input type="text" class="form-control" id="IDD" th:value="${user.id}" th:placeholder="${user.id}" disabled>
+
+                                    <label for="nameD" class="form-label"><strong>Name</strong></label>
+                                    <input type="text" class="form-control" id="nameD" th:value="${user.name}" th:placeholder="${user.name}" disabled>
+
+                                    <label for="usernameD" class="form-label"><strong>Username</strong></label>
+                                    <input type="text" class="form-control" id="usernameD" th:value="${user.username}" th:placeholder="${user.username}" disabled>
+
+                                    <label for="emailD" class="form-label"><strong>E-mail</strong></label>
+                                    <input type="email" class="form-control" id="emailD" th:value="${user.email}" th:placeholder="${user.email}" disabled>
+
+                                    <label for="phoneD" class="form-label"><strong>Phone</strong></label>
+                                    <input type="text" class="form-control" id="phoneD" th:value="${user.phone}" th:placeholder="${user.phone}" disabled>
+
+                                    <label for="rolesD" class="form-label"><strong>Roles</strong></label>
+                                    <div th:each="role: ${allRoles}">
+                                      <input type="checkbox" class="form-check-input" id="rolesD"
+                                             th:text="${role.name}"
+                                             th:value="${user.roles}"
+                                             disabled>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form th:action="@{/admin/delete}" method="post">
+                                  <button type="submit" class="btn btn-danger" th:name="id" th:value="${user.id}">Delete</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                     </tbody>
@@ -105,6 +153,7 @@
               </div>
             </div>
           </div>
+          <!-- Добавляем пользователя -->
           <div class="tab-pane fade" id="add-user" role="tabpanel" aria-labelledby="add-user-tab">
             <div class="card mt-3">
               <div class="card-body">
@@ -112,7 +161,7 @@
                   Add User
                 </h5>
                 <div class="table-responsive">
-                  <form th:action="@{/admin/add}" method="post" th:object="${user}">
+                  <form th:action="@{/admin/add}" method="post" th:object="${addUser}">
                     <div class="container d-flex justify-content-center">
                       <div class="m-3 text-center col-4">
                         <label for="name" class="form-label"><strong>Name</strong></label>
@@ -130,8 +179,17 @@
                         <label for="password" class="form-label"><strong>Password</strong></label>
                         <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password..." required>
 
-                        <button type="submit" class="btn btn-success my-3">Add</button>
+                        <label for="roles" class="form-label"><strong>Roles</strong></label>
+                        <div th:each="role: ${allRoles}">
+                        <input type="checkbox" class="form-check-input" id="roles"
+                          th:text="${role.name}"
+                          th:value="${role.id}"
+                          th:field="${addUser.roles}">
+                        </div>
+
+                        <button type="submit" class="btn btn-success my-3 fs-5">Add new user</button>
                       </div>
+
                     </div>
                   </form>
                 </div>
@@ -139,8 +197,6 @@
             </div>
           </div>
         </div>
-
-
       </main>
     </div>
   </div>
