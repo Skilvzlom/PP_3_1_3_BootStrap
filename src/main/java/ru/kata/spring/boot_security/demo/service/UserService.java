@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> findById(Long id) {
-        return Optional.of(userRepository.getById(id));
+        return userRepository.findById(id);
     }
 
     public List<User> findAll() {
