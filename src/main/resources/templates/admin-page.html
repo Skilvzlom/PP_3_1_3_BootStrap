@@ -95,6 +95,107 @@
               </div>
             </div>
           </div>
+          <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"> Edit User</h5>
+                </div>
+                <form id="edit-form">
+                  <div class="modal-body">
+                    <label for="id-edit" class="form-label"><strong>ID</strong></label>
+                    <input type="text" class="form-control" id="id-edit" name="id" placeholder="Id..." readonly>
+
+                    <label for="name-edit" class="form-label"><strong>Name</strong></label>
+                    <input type="text" class="form-control" id="name-edit" name="name" placeholder="name..." required>
+
+                    <label for="username-edit" class="form-label"><strong>Username</strong></label>
+                    <input type="text" class="form-control" id="username-edit" name="username" placeholder="username..." required>
+
+                    <label for="email-edit" class="form-label"><strong>E-mail</strong></label>
+                    <input type="email" class="form-control" id="email-edit" name="email" placeholder="E-mail..." required>
+
+                    <label for="phone-edit" class="form-label"><strong>Phone</strong></label>
+                    <input type="text" class="form-control" id="phone-edit" name="phone" placeholder="Phone..." required>
+
+                    <label for="password-edit" class="form-label"><strong>Password</strong></label>
+                    <input type="password" class="form-control" id="password-edit" name="password" placeholder="Password..." required>
+
+                    <label for="roles-edit" class="form-label"><strong>Roles</strong></label>
+                    <div>
+                      <select name="roles" class="form-select" size="2" multiple aria-label="roles" id="roles-edit" required>
+                        <option value="1 USER">USER</option>
+                        <option value="2 ADMIN">ADMIN</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"> Delete User</h5>
+                </div>
+                <form class="modal-form" id="form-delete">
+                <div class="modal-body text-center">
+
+                  <div class="form-group">
+                    <label for="id-delete" class="form-label"><strong>ID</strong></label>
+                    <input type="text" class="form-control" id="id-delete" name="id" placeholder="Id..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name-delete" class="form-label"><strong>Name</strong></label>
+                    <input type="text" class="form-control" id="name-delete" name="name" placeholder="name..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username-delete" class="form-label"><strong>Username</strong></label>
+                    <input type="text" class="form-control" id="username-delete" name="username" placeholder="username..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email-delete" class="form-label"><strong>E-mail</strong></label>
+                    <input type="email" class="form-control" id="email-delete" name="email" placeholder="E-mail..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone-delete" class="form-label"><strong>Phone</strong></label>
+                    <input type="text" class="form-control" id="phone-delete" name="phone" placeholder="Phone..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password-delete" class="form-label"><strong>Password</strong></label>
+                    <input type="password" class="form-control" id="password-delete" name="password" placeholder="Password..." disabled>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="roles-delete" class="form-label"><strong>Roles</strong></label>
+                    <div>
+                      <select name="roles" class="form-select" size="2" multiple aria-label="roles" id="roles-delete" disabled>
+                        <option value="1 USER">USER</option>
+                        <option value="2 ADMIN">ADMIN</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+                </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
           <!-- Добавляем пользователя -->
           <div class="tab-pane fade" id="add-user" role="tabpanel" aria-labelledby="add-user-tab">
             <div class="card mt-3">
@@ -143,6 +244,9 @@
 <script src="/js/addUser.js"></script>
 <script src="/js/usersTable.js"></script>
 <script>getUsers()</script>
+<script src="/js/deleteUser.js"></script>
+<script src="/js/editUser.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </body>
 </html>

@@ -28,23 +28,23 @@ async function getUsers() {
             <td>
                 <button type="button" class="btn btn-info text-white"
                 data-bs-userId="${id}"
+                data-bs-name="${name}"
                 data-bs-userName="${username}"
                 data-bs-phone="${phone}"
                 data-bs-email="${email}"
-                data-bs-roles="${userRoles}"
                 data-bs-toggle="modal"
-                data-bs-target="#ModalEdit"
+                data-bs-target="#modal-edit"
                 >Edit</button> 
             </td>
             <td>
                 <button type="button" class="btn btn-danger text-white"
                 data-bs-userId="${id}"
+                data-bs-name="${name}"
                 data-bs-userName="${username}"
                 data-bs-phone="${phone}"
                 data-bs-email="${email}"
-                data-bs-roles="${userRoles}"
                 data-bs-toggle="modal"
-                data-bs-target="#ModalDelete"
+                data-bs-target="#modal-delete"
                 >Delete</button> 
             </td>`;
 

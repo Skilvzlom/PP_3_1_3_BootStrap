@@ -15,7 +15,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
 
     @Column
     @NotNull
@@ -36,7 +36,7 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -47,16 +47,7 @@ public class User implements UserDetails {
     }
 
     public User(Long id, String name, String userName, String email, String phone, String password, Set<Role> roles) {
-        this.id = id;
-        this.name = name;
-        this.username = userName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    public User(String name, String userName, String email, String phone, String password, Set<Role> roles) {
+        this.Id = id;
         this.name = name;
         this.username = userName;
         this.email = email;
@@ -75,11 +66,11 @@ public class User implements UserDetails {
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getName() {

@@ -75,8 +75,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr id="user-info">
-
+                                <tr>
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.phone}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -85,7 +89,5 @@
             </div>
         </main>
     </div>
-
-<script src="/js/usersTable.js"></script>
 </body>
 </html>

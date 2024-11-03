@@ -11,7 +11,7 @@ addForm.addEventListener("submit", e=> {
         console.log(key)
         if (key === "roles") {
          const roleId = value.split(" ")[0];
-         const roleName = value.split(" ")[1];
+         const roleName = "ROLE_" + value.split(" ")[1];
 
          const role = {
              id : parseInt(roleId),
@@ -26,7 +26,7 @@ addForm.addEventListener("submit", e=> {
 
     fetch("api/users/", {
         method:"POST",
-        header: {
+        headers: {
             "Content-type": "application/json"
         },
         body: JSON.stringify(object)
